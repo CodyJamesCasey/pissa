@@ -6,4 +6,4 @@ require('./sips/less')(gulp);
 require('./sips/browserify')(gulp);
 require('./sips/server')(gulp);
 
-gulp.task('default', ['clean', 'html', 'less', 'image', 'vendor', 'watchify', 'server']);
+gulp.task('default', ['clean', 'html', 'less', 'watchify', 'server']);

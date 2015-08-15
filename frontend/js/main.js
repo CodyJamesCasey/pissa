@@ -1,5 +1,6 @@
 import React from 'react';
 import moment from 'moment';
+import $ from 'jquery';
 moment().format();
 
 export class Main extends React.Component {
@@ -16,7 +17,6 @@ export class Main extends React.Component {
 
     componentDidMount() {
         this.getLocation();
-        this.getNextPass();
     }
 
     getLocation() {
@@ -25,19 +25,22 @@ export class Main extends React.Component {
                 this.setState({
                     latitude: position.coords.latitude,
                     longitude: position.coords.longitude
-                })
+                });
+                this.getNextPass();
             }.bind(this));
         }
     }
 
     getNextPass() {
-        //TODO call api to get actual value
-        var unixTimestamp = 1439674710;
+        $.post('iss', { lat: this.state.latitude, lon: this.state.longitude}, 
+            function(response){
+                this.setState({
+                day: moment.unix(response).format("dddd MMMM DD, YYYY"),
+                time: moment.unix(response).format("HH:mm")
+            });
+        }.bind(this));
 
-        this.setState({
-            day: moment.unix(unixTimestamp).format("dddd MMMM DD, YYYY"),
-            time: moment.unix(unixTimestamp).format("HH:mm")
-        });
+
     }
 
     orderPizza() {

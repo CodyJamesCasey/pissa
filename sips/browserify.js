@@ -22,7 +22,7 @@ module.exports = function(gulp) {
             .pipe(gulp.dest(path.join(baseDir, 'dist')));
     });
 
-    gulp.task('watchify', function() {
+    gulp.task('watchify', ['browserify'], function() {
         var bundler = browserify({
             paths: [
                 path.join(baseDir, 'node_modules'),   // For node modules
@@ -35,6 +35,9 @@ module.exports = function(gulp) {
                 bundler.bundle()
                     .pipe(source(path.join(baseDir, 'main.js')))
                     .pipe(gulp.dest(path.join(baseDir, 'dist')));
+            })
+            .on('error', function(err) {
+                console.log('There was a problem', err);
             })
             .add(path.join(baseDir, 'frontend', 'js', 'main.js'))
             .bundle()

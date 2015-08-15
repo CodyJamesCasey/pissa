@@ -13,13 +13,6 @@ module.exports = function(gulp) {
         .pipe(sourcemaps.write())
         .pipe(gulp.dest(path.join(baseDir, 'dist')))
         .pipe(livereload());
-
-        gulp.src(path.join(baseDir, 'frontend', 'less', 'resume.less'))
-        .pipe(sourcemaps.init())
-        .pipe(less())
-        .pipe(sourcemaps.write())
-        .pipe(gulp.dest(path.join(baseDir, 'dist')))
-        .pipe(livereload());
     });
 
     gulp.task('less:watch', function() {

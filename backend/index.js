@@ -1,8 +1,8 @@
 var express = require('express');
 var path = require('path');
+var PF = require('port-friends');
 
 var app = express();
-var http = require('http').Server(app);
 
 app.use('/static', express.static(path.join(__dirname, '..', 'dist')));
 
@@ -12,4 +12,4 @@ app.get('/', function (req, res) {
 
 app.set('port', process.env.PORT || 3000);
 
-http.listen(app.get('port'));
+PF.listen(app);

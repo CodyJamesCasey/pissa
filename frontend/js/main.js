@@ -35,7 +35,7 @@ export class Main extends React.Component {
         var unixTimestamp = 1439674710;
 
         this.setState({
-            day: moment.unix(unixTimestamp).format("dddd MMMM YYYY"),
+            day: moment.unix(unixTimestamp).format("dddd MMMM DD, YYYY"),
             time: moment.unix(unixTimestamp).format("HH:mm")
         });
     }

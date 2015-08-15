@@ -5,9 +5,11 @@
   "main": "gulpfile.js",
   "dependencies": {
     "body-parser": "^1.13.3",
+    "dotenv": "^1.2.0",
     "moment": "^2.10.6",
     "port-friends": "^3.1.2",
-    "request": "^2.60.0"
+    "request": "^2.60.0",
+    "twilio": "^2.3.0"
   },
   "devDependencies": {
     "babelify": "^6.1.2",

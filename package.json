@@ -4,6 +4,7 @@
   "description": "",
   "main": "gulpfile.js",
   "dependencies": {
+    "request": "^2.60.0"
   },
   "devDependencies": {
     "babelify": "^6.1.2",

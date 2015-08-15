@@ -48,9 +48,18 @@ export class Main extends React.Component {
 
         return(
             <div>
-                <div id="message-wrapper">
-                    <div id="message-status">{'The ISS will pass over you at ' + this.state.day + ' at ' + this.state.time + '!'}</div>
-                    <div id="message-pizza" onClick={this.orderPizza}>Click to order your pizza!</div>
+                <div id="background-image-wrapper">
+                    <div id="earth-image"></div>
+                    <div id="mountains-image"></div>
+                    <div id="pizza-image"></div>
+                </div>
+                <div id="background-image-glass"></div>
+                <div id="content">
+                    <div id="message-background"></div>
+                    <div id="message-wrapper">
+                        <div id="message-status">{'The ISS will pass over you on ' + this.state.day + ' at ' + this.state.time + '!'}</div>
+                        <div id="pizza-button" onClick={this.orderPizza}>Click to order your pizza!</div>
+                    </div>
                 </div>
             </div>
         );

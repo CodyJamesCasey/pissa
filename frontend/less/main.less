@@ -1,4 +1,9 @@
-@purple-gray: #9684a1; //rgba(150, 132, 161, 100)
+@space-blue: #696e96; //rgba(105, 110, 150, 100)
+@space-purple-gray: #9684a1; //rgba(150, 132, 161, 100)
+
+@space-brown: #725752; //rgba(114, 87, 82, 100)
+@space-purple: #935393; //rgba(147, 83, 147, 100)
+@space-pink: #b392ac; //rgba(179, 146, 172, 100)
 
 html body {
     padding: 0;
@@ -8,26 +13,87 @@ html body {
     font-family: "Roboto";
 }
 
-#message-wrapper {
+#background-image-glass {
+    position: absolute;
     width: 100%;
+    height: 100%;
+    background-color: transparent;
+    background: linear-gradient(
+        45deg, 
+        rgba(105, 110, 150, 0.6), 
+        rgba(147, 83, 147, 0.2));
+    z-index: 200;
+}
+
+#background-image-wrapper {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+}
+
+#earth-image {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background: url("images/earth-layer.jpg") no-repeat bottom fixed;
+    background-size: 100% auto;
+}
+
+#mountains-image {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background: url("images/mountains.png") no-repeat bottom fixed;
+    background-size: 100% auto;
+}
+
+#pizza-image {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background: url("images/pizza.png") no-repeat center center fixed;
+}
+
+#message-background {
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    height: 200px;
+    margin: 400px 325px 0px;
+    padding: 35px;
+    background-color: @space-purple-gray;
+    opacity: 0.9;
+    border-radius: 10px;
+    z-index: 300;
+}
+
+#message-wrapper {
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    height: 200px;
     text-align: center;
-    margin-top: 400px;
+    margin: 400px 325px 0px;
+    padding: 35px;
+    z-index: 400;
 
     #message-status {
         font-size: 38px;
     }
 
-    #message-pizza {
+    #pizza-button {
         display: inline-block;
         font-size: 28px;
         margin: 75px auto 0px;
         padding: 20px;
         border-radius: 10px;
-        background-color: @purple-gray;
+        background-color: @space-purple;
 
         &:hover {
             cursor: pointer;
-            background-color: lighten(@purple-gray, 10%);
+            background-color: lighten(@space-purple, 10%);
+            opacity: 1;
         }
     }
 }

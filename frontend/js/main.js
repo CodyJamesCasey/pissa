@@ -48,8 +48,10 @@ export class Main extends React.Component {
 
         return(
             <div>
-                <div>{'The ISS will pass over you at ' + this.state.day + ' at ' + this.state.time + '!'}</div>
-                <div onClick={this.orderPizza}>Click to order your pizza!</div>
+                <div id="message-wrapper">
+                    <div id="message-status">{'The ISS will pass over you at ' + this.state.day + ' at ' + this.state.time + '!'}</div>
+                    <div id="message-pizza" onClick={this.orderPizza}>Click to order your pizza!</div>
+                </div>
             </div>
         );
     }

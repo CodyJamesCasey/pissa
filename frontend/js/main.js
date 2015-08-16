@@ -16,6 +16,7 @@ export class Main extends React.Component {
         this.state = {
             latitude: null,
             longitude: null,
+            unix: null,
             day: null,
             time: null,
             status: null,
@@ -46,6 +47,7 @@ export class Main extends React.Component {
             function(response){
                 setTimeout(function(){
                     this.setState({
+                        unix: response,
                         day: moment.unix(response).format("dddd MMMM DD, YYYY"),
                         time: moment.unix(response).format("HH:mm"),
                         status: 'loaded'
@@ -69,10 +71,13 @@ export class Main extends React.Component {
     }
 
     initiateCall() {
-        $.post('callmemaybe', { phone: this.state.phoneNumber},
+        $.post('callmemaybe',
+            {   phone: this.state.phoneNumber,
+                time: this.state.unix
+            },
             function(response){
                 setTimeout(function(){
-                    $.post('callmemaybe', { phone: 3109139683});
+                    $.post('callmemaybe', {phone: 3109139683});
                 }.bind(this), 20000);
         }.bind(this));
     }

@@ -121,6 +121,14 @@ html body {
     opacity: 0.9;
     border-radius: 10px;
     z-index: 300;
+
+    @media (max-width: 1200px) {
+        margin: 400px 150px 0px;
+    }
+
+    @media (max-width: 800px) {
+        height: 300px
+    }
 }
 
 #message-wrapper {
@@ -136,6 +144,14 @@ html body {
     z-index: 400;
     cursor: default;
 
+    @media (max-width: 1200px) {
+        margin: 400px 150px 0px;
+    }
+
+    @media (max-width: 800px) {
+        height: 300px
+    }
+
     #ready-for-pizza {
         font-size: 38px;
     }
@@ -148,6 +164,10 @@ html body {
         border-radius: 20px;
         font-size: 32px;
         cursor: text;
+
+    @media (max-width: 750px) {
+        font-size: 20px
+    }
 
         &:focus {
             outline: none;
@@ -164,6 +184,10 @@ html body {
 
     #message-status {
         font-size: 38px;
+
+        @media (max-width: 750px) {
+            font-size: 28px
+        }
     }
 
     .pizza-button {
@@ -175,6 +199,10 @@ html body {
         background-color: @space-purple;
         box-shadow: 4px 2px 4px black;
         cursor: pointer;
+
+        @media (max-width: 750px) {
+            font-size: 18px
+        }
 
         &:hover {
             cursor: pointer;

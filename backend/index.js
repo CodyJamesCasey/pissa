@@ -15,6 +15,10 @@ app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, '..', 'dist', 'index.html'));
 });
 
+app.get('/stuffs/conference.xml', function(req, res){
+  res.sendFile(path.join(__dirname, 'conf.xml'));
+})
+
 app.post('/iss', function (req, res){
   iss.get(req.body.lat, req.body.lon, function(rez){
     var money = JSON.parse(rez);

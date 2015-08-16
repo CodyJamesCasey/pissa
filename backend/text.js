@@ -7,7 +7,11 @@ module.exports = {
       to: "+1" + number.toString(),
       from: "+14242215392"
     }, function(err, message){
-      console.log(message.sid)
+      if (!err){
+        return true;
+      } else {
+        return false;
+      }
     })
   }
 }

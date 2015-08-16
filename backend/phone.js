@@ -14,11 +14,11 @@ module.exports = {
       }
     })
   },
-  conference: function(number, cb){
+  conference: function(host, number, cb){
     client.makeCall({
       to: '+1' + number.toString(),
       from: "+14242215392",
-      url: 'http://41b0768c.ngrok.com/stuffs/conference.xml'
+      url:  'http://41b0768c.ngrok.com/stuffs/conference.xml'
     }, function(err, message){
       cb(err, message)
     })

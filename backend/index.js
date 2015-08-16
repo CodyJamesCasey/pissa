@@ -29,8 +29,12 @@ app.post('/iss', function (req, res){
   })
 });
 
+app.post('/stuffs/song', function(req, res){
+  res.sendFile(path.join(__dirname, 'song.mp3'))
+})
+
 app.post('/callmemaybe', function(req, res){
-  phone.conference(req.body.phone, function(err, message){
+  phone.conference(req.headers.host, req.body.phone, function(err, message){
     if (!err){
       res.status(200).end();
     } else {

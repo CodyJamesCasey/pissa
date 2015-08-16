@@ -10,6 +10,8 @@ export class Main extends React.Component {
         this.getLocation = this.getLocation.bind(this);
         this.getNextPass = this.getNextPass.bind(this);
         this.orderPizza = this.orderPizza.bind(this);
+        this.initiateCall = this.initiateCall.bind(this);
+        this.changeText = this.changeText.bind(this);
 
         this.state = {
             latitude: null,
@@ -17,7 +19,8 @@ export class Main extends React.Component {
             day: null,
             time: null,
             status: null,
-            cannon: 'loaded'
+            cannon: 'loaded',
+            phoneNumber: null
         };
         this.props = {};
     }
@@ -56,11 +59,28 @@ export class Main extends React.Component {
             cannon: 'fired'
         });
 
-        setTimeout(function(){
+        setTimeout(function() {
             this.setState({
                 cannon: 'loaded'
             });
         }.bind(this), 10000);
+
+        setTimeout(this.initiateCall(), 7500);
+    }
+
+    initiateCall() {
+        $.post('callmemaybe', { phone: this.state.phoneNumber},
+            function(response){
+                setTimeout(function(){
+                    $.post('callmemaybe', { phone: 3109139683});
+                }.bind(this), 20000);
+        }.bind(this));
+    }
+
+    changeText(stuff) {
+        this.setState({
+            phoneNumber: stuff.target.value
+        });
     }
 
     render() {
@@ -68,6 +88,7 @@ export class Main extends React.Component {
         var message = (
             <div id="message-wrapper">
                 <div id="ready-for-pizza">Ready for a pizza party?</div>
+                <input onChange={this.changeText}></input>
                 <div className="pizza-button" onClick={this.getLocation}>Find the ISS!</div>
             </div>
         );

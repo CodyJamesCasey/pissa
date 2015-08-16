@@ -72,10 +72,27 @@ html body {
     animation: spin-roll 5s infinite ease;
 }
 
+.pizza-cannon-prepped {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 25%;
+    transform: translateX(50%);
+    width: 120px;
+    height: 120px;
+    margin: auto;
+    animation: pizza-prepped 10s linear;
+
+    .spinning-pie-cannon-prepped {
+        animation: spin-prepped 10s linear;
+    }
+}
+
 .pizza-cannon-fired {
     position: absolute;
     top: 50%;
-    left: -120px;
+    left: -20%;
+    transform: translateX(50%);
     width: 120px;
     height: 120px;
     animation: pizza-cannon 10s cubic-bezier(0,1.08,.76,1.07);
@@ -97,7 +114,11 @@ html body {
 }
 
 @keyframes pizza-cannon {
-    80% {
+    0% {
+        left: -20%;
+        transform: translateX(50%);
+    }
+    60% {
         top: 10%;
         left: 50%;
         width: 60px;
@@ -108,6 +129,33 @@ html body {
         left: 66%;
         width: 0px;
         height: 0px;
+    }
+}
+
+@keyframes pizza-prepped {
+    50% {
+        right: 25%;
+        transform: translateX(50%);
+    }
+    80% {
+        right: 25%;
+        transform: translateX(50%);
+    }
+    90% {
+        right: 120%;
+        transform: translateX(50%);
+    }
+}
+
+@keyframes spin-prepped {
+    50%{
+        transform: rotate(0deg);
+    }
+    80% {
+        transform: rotate(0deg);
+    }
+    90% {
+        transform: rotate(-270deg);
     }
 }
 
@@ -130,6 +178,10 @@ html body {
 }
 
 @keyframes roll {
+    0% {
+        right: 25%;
+        transform: translateX(50%);
+    }
     50% {
         right: 75%;
         transform: translateX(50%);
@@ -226,6 +278,7 @@ html body {
     #message-status {
         font-size: 38px;
         margin-top: 30px;
+        line-height: 60px;
 
         @media (max-width: 750px) {
             font-size: 28px

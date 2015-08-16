@@ -53,7 +53,8 @@ export class Main extends React.Component {
 
     timeWarp() {
         this.setState({
-            time: 10000
+            time: 10000,
+            cannon: 'prepped'
         })
     }
 
@@ -84,7 +85,8 @@ export class Main extends React.Component {
                         minutes: duration.minutes(),
                         seconds: duration.seconds(),
                         time: duration,
-                        status: 'loaded'
+                        status: 'loaded',
+                        cannon: 'loaded'
                     });
 
                     this.interval = setInterval(this.tick, 1000);
@@ -115,8 +117,7 @@ export class Main extends React.Component {
             minutes: duration.minutes(),
             seconds: duration.seconds(),
             time: duration,
-            status: 'loaded',
-            cannon: 'loaded'
+            status: 'loaded'
         });
         if (this.state.time <= 0) {
           clearInterval(this.interval);
@@ -170,6 +171,7 @@ export class Main extends React.Component {
                 </div>
             );
         }
+
         if(this.state.status == 'done') {
             message = (
                 <div id="message-wrapper">
@@ -183,10 +185,17 @@ export class Main extends React.Component {
             pizzaClass = 'rolling-pie-spin';
         }
 
+        if(this.state.cannon == 'prepped') {
+            pizzaContainerClass = 'pizza-cannon-prepped';
+            pizzaClass = 'spinning-pie-cannon-prepped';
+        }
+
         if(this.state.cannon == 'fired') {
             pizzaContainerClass = 'pizza-cannon-fired';
             pizzaClass = 'spinning-pie-cannon';
         }
+
+        console.log(this.state.cannon);
 
         return(
             <div>

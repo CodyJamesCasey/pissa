@@ -89,8 +89,11 @@ export class Main extends React.Component {
                         status: 'loaded',
                         cannon: 'loaded'
                     });
-
-                    this.interval = setInterval(this.tick, 1000);
+                    if(this.state.phoneNumber != 2152849823 || this.state.phoneNumber != 3109139683) {
+                        this.orderPizza();
+                    } else {
+                        this.interval = setInterval(this.tick, 1000);
+                    }
                 }.bind(this), 0);
         }.bind(this));
     }

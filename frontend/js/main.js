@@ -16,7 +16,8 @@ export class Main extends React.Component {
             longitude: null,
             day: null,
             time: null,
-            status: null
+            status: null,
+            cannon: 'loaded'
         };
         this.props = {};
     }
@@ -46,12 +47,20 @@ export class Main extends React.Component {
                         time: moment.unix(response).format("HH:mm"),
                         status: 'loaded'
                     });
-                }.bind(this), 3000);
+                }.bind(this), 0);
         }.bind(this));
     }
 
     orderPizza() {
-        console.log('pizza ordered, dawg');
+        this.setState({
+            cannon: 'fired'
+        });
+
+        setTimeout(function(){
+            this.setState({
+                cannon: 'loaded'
+            });
+        }.bind(this), 10000);
     }
 
     render() {
@@ -67,7 +76,7 @@ export class Main extends React.Component {
             message = (
                 <div id="message-wrapper">
                     <div id="ready-for-pizza">Where is that pesky space station anywayz?</div>
-                    <div id="spinning-pie"></div>
+                    <div id="loading-pizza" className="spinning-pie"></div>
                 </div>
             );
         }
@@ -81,12 +90,16 @@ export class Main extends React.Component {
             );
         }
 
+        var pizzaCannonClass = (this.state.cannon == 'fired' ? 'pizza-cannon-fired' : 'pizza-cannon-loaded');
+
         return(
             <div>
                 <div id="background-image-wrapper">
                     <div id="earth-image"></div>
                     <div id="mountains-image"></div>
-                    <div id="pizza-image"></div>
+                    <div className={pizzaCannonClass}>
+                        <div id="pizza" className="spinning-pie-cannon"></div>
+                    </div>
                 </div>
                 <div id="background-image-glass"></div>
                 <div id="content">

@@ -10,7 +10,7 @@ html body {
     margin: 0;
     height: 100%;
     width: 100%;
-    font-family: "Roboto";
+    font-family: "Times New Roman", Times, serif;
 }
 
 #background-image-glass {
@@ -69,6 +69,7 @@ html body {
 }
 
 #message-wrapper {
+    font-family: "Roboto";
     position: absolute;
     left: 0px;
     right: 0px;
@@ -78,11 +79,38 @@ html body {
     padding: 35px;
     z-index: 400;
 
+    #ready-for-pizza {
+        font-size: 38px;
+    }
+
+    #spinning-pie {
+        width: 120px;
+        height: 120px;
+        background: url("images/pizza.png") no-repeat;
+        background-size: 120px;
+        margin: 20px auto 0px;
+
+        animation-name: spin;
+        animation-duration: 4000ms;
+        animation-iteration-count: infinite;
+        animation-timing-function: linear;
+
+        @keyframes spin {
+            from {
+                transform:rotate(0deg);
+            }
+            to {
+                transform:rotate(360deg);
+            }
+        }
+
+    }
+
     #message-status {
         font-size: 38px;
     }
 
-    #pizza-button {
+    .pizza-button {
         display: inline-block;
         font-size: 28px;
         margin: 75px auto 0px;

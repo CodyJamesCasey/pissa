@@ -1,9 +1,10 @@
 var client = require('twilio')(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
+var moment = require('moment');
 
 module.exports = {
-  send: function(number, cb){
+  send: function(number, time, cb){
     client.messages.create({
-      body: "Grab your binoculars, gather your friends. It's pISSa party time!!!",
+      body: "Grab your binoculars, gather your friends. It's pISSa party time!!! (" + moment.unix(time).fromNow() + " we'll get your pizza ordered)",
       to: "+1" + number.toString(),
       from: "+14242215392"
     }, function(err, message){

@@ -29,6 +29,7 @@ html body {
     width: 100%;
     height: 100%;
     z-index: 100;
+    overflow: hidden;
 }
 
 #earth-image {
@@ -41,11 +42,15 @@ html body {
 
 #mountains-image {
     position: absolute;
-    height: 100%;
-    width: 100%;
+    bottom: -180px;
+    width: 150%;
+    height: 150%;
     background: url("images/mountains.png") no-repeat fixed;
-    background-position-y: 120%;
-    background-size: 105% auto;
+    background-position-y: 80%;
+    background-position-x: 50%;
+    background-size: 125% auto;
+
+
 }
 
 .earthquake {

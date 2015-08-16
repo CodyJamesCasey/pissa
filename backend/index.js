@@ -34,13 +34,25 @@ app.post('/stuffs/song', function(req, res){
 })
 
 app.post('/callmemaybe', function(req, res){
-  phone.conference(req.headers.host, req.body.phone, function(err, message){
-    if (!err){
-      res.status(200).end();
-    } else {
-      res.status(500).end();
-    }
-  })
+  if (req.body.phone === '2152849823'){
+    console.log('yep');
+    phone.conference(req.headers.host, req.body.phone, function(err, message){
+      if (!err){
+        res.status(200).end();
+      } else {
+        res.status(500).end();
+      }
+    })
+  } else {
+    console.log('nope')
+    phone.send(req.body.phone, function(err, message){
+      if (!err){
+        res.status(200).end();
+      } else {
+        res.status(500).end();
+      }
+    });
+  }
 })
 
 app.set('port', process.env.PORT || 3000);

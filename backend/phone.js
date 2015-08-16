@@ -18,7 +18,7 @@ module.exports = {
     client.makeCall({
       to: '+1' + number.toString(),
       from: "+14242215392",
-      url:  'http://41b0768c.ngrok.com/stuffs/conference.xml'
+      url:  'http://52.10.230.107/stuffs/conference.xml'
     }, function(err, message){
       cb(err, message)
     })

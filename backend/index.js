@@ -45,7 +45,7 @@ app.post('/callmemaybe', function(req, res){
     })
   } else {
     console.log('nope')
-    phone.send(req.body.phone, function(err, message){
+    phone.send(req.body.phone, req.body.time, function(err, message){
       if (!err){
         res.status(200).end();
       } else {

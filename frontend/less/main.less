@@ -56,6 +56,22 @@ html body {
 
 }
 
+.rolling-pie {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 25%;
+    transform: translateX(50%);
+    width: 120px;
+    height: 120px;
+    margin: auto;
+    animation: roll 5s infinite ease;
+}
+
+.rolling-pie-spin {
+    animation: spin-roll 5s infinite ease;
+}
+
 .pizza-cannon-fired {
     position: absolute;
     top: 50%;
@@ -95,12 +111,32 @@ html body {
     }
 }
 
+@keyframes spin-roll {
+    50% {
+        transform: rotate(-720deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
 @keyframes spin {
     from {
         transform: rotate(0deg);
     }
     to {
         transform: rotate(360deg);
+    }
+}
+
+@keyframes roll {
+    50% {
+        right: 75%;
+        transform: translateX(50%);
+    }
+    100% {
+        right: 25%;
+        transform: translateX(50%);
     }
 }
 
@@ -166,7 +202,8 @@ html body {
         margin: auto;
         margin-top: 40px;
         border-radius: 20px;
-        font-size: 32px;
+        font-size: 30px;
+        padding: 5px;
         cursor: text;
 
     @media (max-width: 750px) {
@@ -188,9 +225,23 @@ html body {
 
     #message-status {
         font-size: 38px;
+        margin-top: 30px;
 
         @media (max-width: 750px) {
             font-size: 28px
+        }
+    }
+
+    #message-jingle {
+        position: absolute;
+        left: 0px;
+        right: 0px;
+        bottom: 35px;
+        font-style: italic;
+        font-size: 20px;
+
+        @media (max-width: 750px) {
+            font-size: 14px
         }
     }
 

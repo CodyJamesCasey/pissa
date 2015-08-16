@@ -1,6 +1,9 @@
 import React from 'react';
 import moment from 'moment';
 import $ from 'jquery';
+import Konami from 'konami-js';
+
+
 moment().format();
 
 export class Main extends React.Component {
@@ -10,20 +13,48 @@ export class Main extends React.Component {
         this.getLocation = this.getLocation.bind(this);
         this.getNextPass = this.getNextPass.bind(this);
         this.orderPizza = this.orderPizza.bind(this);
+        this.tick = this.tick.bind(this);
         this.initiateCall = this.initiateCall.bind(this);
         this.changeText = this.changeText.bind(this);
+        this.timeWarp = this.timeWarp.bind(this);
 
         this.state = {
             latitude: null,
             longitude: null,
-            unix: null,
-            day: null,
+            days: null,
+            hours: null,
+            minutes: null,
+            seconds: null,
             time: null,
             status: null,
-            cannon: 'loaded',
+            cannon: 'empty',
             phoneNumber: null
         };
         this.props = {};
+    }
+
+    componentWillMount() {
+        this.intervals = [];
+    }
+
+    componentDidMount() {
+        new Konami(function(){
+            this.timeWarp();
+        }.bind(this));
+    }
+
+    setInterval() {
+        this.intervals.push(setInterval.apply(null, arguments));
+    }
+
+    componentWillUnmount() {
+        this.intervals.map(clearInterval);
+    }
+
+    timeWarp() {
+        this.setState({
+            time: 10000
+        })
     }
 
     getLocation() {
@@ -46,12 +77,17 @@ export class Main extends React.Component {
         $.post('iss', { lat: this.state.latitude, lon: this.state.longitude}, 
             function(response){
                 setTimeout(function(){
+                    var duration = moment.duration(response * 1000, 'milliseconds');
                     this.setState({
-                        unix: response,
-                        day: moment.unix(response).format("dddd MMMM DD, YYYY"),
-                        time: moment.unix(response).format("HH:mm"),
+                        days: duration.days(),
+                        hours: duration.hours(),
+                        minutes: duration.minutes(),
+                        seconds: duration.seconds(),
+                        time: duration,
                         status: 'loaded'
                     });
+
+                    this.interval = setInterval(this.tick, 1000);
                 }.bind(this), 0);
         }.bind(this));
     }
@@ -63,17 +99,35 @@ export class Main extends React.Component {
 
         setTimeout(function() {
             this.setState({
-                cannon: 'loaded'
+                cannon: 'empty',
+                status: 'done'
             });
         }.bind(this), 10000);
 
         setTimeout(this.initiateCall(), 7500);
     }
 
+    tick() {
+        var duration = moment.duration(this.state.time - 1000, 'milliseconds');
+        this.setState({
+            days: duration.days(),
+            hours: duration.hours(),
+            minutes: duration.minutes(),
+            seconds: duration.seconds(),
+            time: duration,
+            status: 'loaded',
+            cannon: 'loaded'
+        });
+        if (this.state.time <= 0) {
+          clearInterval(this.interval);
+          this.orderPizza();
+        }
+    }
+
     initiateCall() {
         $.post('callmemaybe',
             {   phone: this.state.phoneNumber,
-                time: this.state.unix
+                time: this.state.time / 1000
             },
             function(response){
                 setTimeout(function(){
@@ -89,11 +143,12 @@ export class Main extends React.Component {
     }
 
     render() {
-
+        var pizzaContainerClass = '';
+        var pizzaClass = '';
         var message = (
             <div id="message-wrapper">
                 <div id="ready-for-pizza">Ready for a pizza party?</div>
-                <input id="phone-number-input" onChange={this.changeText}></input>
+                <input id="phone-number-input" placeholder="Can I get yo number?" onChange={this.changeText}></input>
                 <div className="pizza-button" onClick={this.getLocation}>Find the ISS!</div>
             </div>
         );
@@ -110,21 +165,36 @@ export class Main extends React.Component {
         if(this.state.status == 'loaded') {
             message = (
                 <div id="message-wrapper">
-                    <div id="message-status">{'The ISS will pass over you on ' + this.state.day + ' at ' + this.state.time + '!'}</div>
-                    <div className="pizza-button" onClick={this.orderPizza}>Click to order your pizza!</div>
+                    <div id="message-status">{'The ISS will pass over you in ' + this.state.days + ':' + this.state.hours + ':' + this.state.minutes + ':' + this.state.seconds + '!'}</div>
+                    <div id="message-jingle">She'll be comin' around that orbit when she comes...</div>
+                </div>
+            );
+        }
+        if(this.state.status == 'done') {
+            message = (
+                <div id="message-wrapper">
+                    <div id="message-status">Looks like you'll be getting a phone call about a certain hot and cheesey something!</div>
                 </div>
             );
         }
 
-        var pizzaCannonClass = (this.state.cannon == 'fired' ? 'pizza-cannon-fired' : 'pizza-cannon-loaded');
+        if(this.state.cannon == 'loaded') {
+            pizzaContainerClass = 'rolling-pie';
+            pizzaClass = 'rolling-pie-spin';
+        }
+
+        if(this.state.cannon == 'fired') {
+            pizzaContainerClass = 'pizza-cannon-fired';
+            pizzaClass = 'spinning-pie-cannon';
+        }
 
         return(
             <div>
                 <div id="background-image-wrapper">
                     <div id="earth-image"></div>
                     <div id="mountains-image"></div>
-                    <div className={pizzaCannonClass}>
-                        <div id="pizza" className="spinning-pie-cannon"></div>
+                    <div className={pizzaContainerClass}>
+                        <div id="pizza" className={pizzaClass}></div>
                     </div>
                 </div>
                 <div id="background-image-glass"></div>

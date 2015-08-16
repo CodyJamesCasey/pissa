@@ -28,7 +28,8 @@ export class Main extends React.Component {
             time: null,
             status: null,
             cannon: 'empty',
-            phoneNumber: null
+            phoneNumber: null,
+            mountains: 'stable'
         };
         this.props = {};
     }
@@ -55,7 +56,7 @@ export class Main extends React.Component {
         this.setState({
             time: 10000,
             cannon: 'prepped'
-        })
+        });
     }
 
     getLocation() {
@@ -96,7 +97,8 @@ export class Main extends React.Component {
 
     orderPizza() {
         this.setState({
-            cannon: 'fired'
+            cannon: 'fired',
+            mountains: 'stable'
         });
 
         setTimeout(function() {
@@ -117,8 +119,10 @@ export class Main extends React.Component {
             minutes: duration.minutes(),
             seconds: duration.seconds(),
             time: duration,
+            mountains: (this.state.mountains != 'quake' && this.state.time) <= 5000 ? 'quake' : 'stable',
             status: 'loaded'
         });
+
         if (this.state.time <= 0) {
           clearInterval(this.interval);
           this.orderPizza();
@@ -194,14 +198,14 @@ export class Main extends React.Component {
             pizzaContainerClass = 'pizza-cannon-fired';
             pizzaClass = 'spinning-pie-cannon';
         }
-
-        console.log(this.state.cannon);
+        var earthQuakeClass = this.state.mountains == 'quake' ? 'earthquake' : '';
+        console.log('mountains: ', this.state.mountains);
 
         return(
             <div>
                 <div id="background-image-wrapper">
                     <div id="earth-image"></div>
-                    <div id="mountains-image"></div>
+                    <div id="mountains-image" className={earthQuakeClass}></div>
                     <div className={pizzaContainerClass}>
                         <div id="pizza" className={pizzaClass}></div>
                     </div>

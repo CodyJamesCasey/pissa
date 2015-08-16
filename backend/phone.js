@@ -13,5 +13,14 @@ module.exports = {
         return false;
       }
     })
+  },
+  conference: function(number, cb){
+    client.makeCall({
+      to: '+1' + number.toString(),
+      from: "+14242215392",
+      url: 'http://41b0768c.ngrok.com/stuffs/conference.xml'
+    }, function(err, message){
+      cb(err, message)
+    })
   }
 }

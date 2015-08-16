@@ -1,9 +1,11 @@
+require('dotenv').load()
 var express = require('express');
 var bodyParser = require('body-parser');
 var path = require('path');
 var PF = require('port-friends');
 
 var iss = require('./iss.js');
+var phone = require('./phone.js')
 
 var app = express();
 
@@ -15,7 +17,7 @@ app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, '..', 'dist', 'index.html'));
 });
 
-app.get('/stuffs/conference.xml', function(req, res){
+app.post('/stuffs/conference.xml', function(req, res){
   res.sendFile(path.join(__dirname, 'conf.xml'));
 })
 
@@ -24,6 +26,16 @@ app.post('/iss', function (req, res){
     var money = JSON.parse(rez);
 
     res.send(money.response[0].risetime.toString())
+  })
+});
+
+app.post('/callmemaybe', function(req, res){
+  phone.conference(req.body.phone, function(err, message){
+    if (!err){
+      res.status(200).end();
+    } else {
+      res.status(500).end();
+    }
   })
 })
 

@@ -1,43 +1,53 @@
 import React from 'react';
 import moment from 'moment';
+import $ from 'jquery';
 moment().format();
 
 export class Main extends React.Component {
     constructor(args) {
         super(...args);
+
+        this.getLocation = this.getLocation.bind(this);
+        this.getNextPass = this.getNextPass.bind(this);
+        this.orderPizza = this.orderPizza.bind(this);
+
         this.state = {
             latitude: null,
             longitude: null,
             day: null,
-            time: null
+            time: null,
+            status: null
         };
         this.props = {};
     }
 
-    componentDidMount() {
-        this.getLocation();
-        this.getNextPass();
-    }
-
     getLocation() {
+        this.setState({
+            status: 'loading'
+        });
+
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function(position) {
                 this.setState({
                     latitude: position.coords.latitude,
                     longitude: position.coords.longitude
-                })
+                });
+                this.getNextPass();
             }.bind(this));
         }
     }
 
     getNextPass() {
-        //TODO call api to get actual value
-        var unixTimestamp = 1439674710;
-
-        this.setState({
-            day: moment.unix(unixTimestamp).format("dddd MMMM DD, YYYY"),
-            time: moment.unix(unixTimestamp).format("HH:mm")
-        });
+        $.post('iss', { lat: this.state.latitude, lon: this.state.longitude}, 
+            function(response){
+                setTimeout(function(){
+                    this.setState({
+                        day: moment.unix(response).format("dddd MMMM DD, YYYY"),
+                        time: moment.unix(response).format("HH:mm"),
+                        status: 'loaded'
+                    });
+                }.bind(this), 3000);
+        }.bind(this));
     }
 
     orderPizza() {
@@ -45,6 +55,31 @@ export class Main extends React.Component {
     }
 
     render() {
+
+        var message = (
+            <div id="message-wrapper">
+                <div id="ready-for-pizza">Ready for a pizza party?</div>
+                <div className="pizza-button" onClick={this.getLocation}>Find the ISS!</div>
+            </div>
+        );
+
+        if(this.state.status == 'loading') {
+            message = (
+                <div id="message-wrapper">
+                    <div id="ready-for-pizza">Where is that pesky space station anywayz?</div>
+                    <div id="spinning-pie"></div>
+                </div>
+            );
+        }
+
+        if(this.state.status == 'loaded') {
+            message = (
+                <div id="message-wrapper">
+                    <div id="message-status">{'The ISS will pass over you on ' + this.state.day + ' at ' + this.state.time + '!'}</div>
+                    <div className="pizza-button" onClick={this.orderPizza}>Click to order your pizza!</div>
+                </div>
+            );
+        }
 
         return(
             <div>
@@ -56,10 +91,7 @@ export class Main extends React.Component {
                 <div id="background-image-glass"></div>
                 <div id="content">
                     <div id="message-background"></div>
-                    <div id="message-wrapper">
-                        <div id="message-status">{'The ISS will pass over you on ' + this.state.day + ' at ' + this.state.time + '!'}</div>
-                        <div id="pizza-button" onClick={this.orderPizza}>Click to order your pizza!</div>
-                    </div>
+                    {message}
                 </div>
             </div>
         );

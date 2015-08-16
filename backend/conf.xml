@@ -1,6 +1,5 @@
 <Response>
-    <Say>Get ready for some pee eye zee zee eh</Say>
     <Dial>
-        <Conference>ISS Pizza Party</Conference>
+        <Conference waitUrl="http://52.10.230.107/stuffs/song">ISS Pizza Party</Conference>
     </Dial>
 </Response>

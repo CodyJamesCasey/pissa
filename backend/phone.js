@@ -13,5 +13,14 @@ module.exports = {
         return false;
       }
     })
+  },
+  conference: function(host, number, cb){
+    client.makeCall({
+      to: '+1' + number.toString(),
+      from: "+14242215392",
+      url:  'http://52.10.230.107/stuffs/conference.xml'
+    }, function(err, message){
+      cb(err, message)
+    })
   }
 }

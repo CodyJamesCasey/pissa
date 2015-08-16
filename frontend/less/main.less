@@ -114,7 +114,7 @@ html body {
     position: absolute;
     left: 0px;
     right: 0px;
-    height: 200px;
+    height: 240px;
     margin: 400px 325px 0px;
     padding: 35px;
     background-color: @space-purple-gray;
@@ -128,15 +128,30 @@ html body {
     position: absolute;
     left: 0px;
     right: 0px;
-    height: 200px;
+    height: 240px;
     text-align: center;
     margin: 400px 325px 0px;
     padding: 35px;
     box-shadow: 4px 2px 4px black;
     z-index: 400;
+    cursor: default;
 
     #ready-for-pizza {
         font-size: 38px;
+    }
+
+    #phone-number-input {
+        display: block;
+        text-align: center;
+        margin: auto;
+        margin-top: 40px;
+        border-radius: 20px;
+        font-size: 32px;
+        cursor: text;
+
+        &:focus {
+            outline: none;
+        }
     }
 
     #loading-pizza {
@@ -154,11 +169,12 @@ html body {
     .pizza-button {
         display: inline-block;
         font-size: 28px;
-        margin: 75px auto 0px;
+        margin: 40px auto 0px;
         padding: 20px;
         border-radius: 10px;
         background-color: @space-purple;
         box-shadow: 4px 2px 4px black;
+        cursor: pointer;
 
         &:hover {
             cursor: pointer;

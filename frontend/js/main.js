@@ -88,7 +88,7 @@ export class Main extends React.Component {
         var message = (
             <div id="message-wrapper">
                 <div id="ready-for-pizza">Ready for a pizza party?</div>
-                <input onChange={this.changeText}></input>
+                <input id="phone-number-input" onChange={this.changeText}></input>
                 <div className="pizza-button" onClick={this.getLocation}>Find the ISS!</div>
             </div>
         );
